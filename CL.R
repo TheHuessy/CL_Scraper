@@ -378,6 +378,7 @@ for (k in c.links){
       html_text()
     if (length(tit) == 0){
       print("Probably a bad link")
+      tit <- NA
     }
     ##Lat
     lat <- sc %>%
@@ -475,6 +476,10 @@ for (k in c.links){
       html_children() %>%
       html_text() %>%
       grep(paste(htwrd, collapse = "|"), ., value = TRUE)
+    if (length(ht) == 0){
+      ht <- NA
+    }
+    
     ##Laundry
     lwrd <- c("laundry", "w/d")
     lndy <- sp %>%
@@ -537,7 +542,9 @@ for (k in c.links){
       html_nodes("#display-date") %>% 
       html_nodes(".date.timeago") %>% 
       html_attr("datetime")
-    
+    if (length(pdt) == 0){
+      pdt <- NA
+    }
     
     ####
     print("COMPILING DATA ROW")
@@ -562,6 +569,12 @@ for (k in c.links){
                        "Scrape_Zip" = zips[i],
                        "Link" = k
     )
+    
+    if (nrow(cgrp) == 0){
+      print(paste("No data for listing", which(c.links == k)))
+      next
+    }
+    
     
     ####
     print("RBINDING DATA ROW")
