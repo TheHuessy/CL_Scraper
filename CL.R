@@ -626,8 +626,6 @@ for (k in c.links){
 CL <- unique(CL)
 
 pls <- nrow(CL)
-lgs <- read_civis("sandbox.craigslist_logs", database="City of Boston")
-lgs <- rbind(lgs, tms)
 
 write_civis(tsc, tablename = "sandbox.craigslist_timestampcheck", if_exists = "append")
 
