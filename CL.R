@@ -599,10 +599,10 @@ for (k in c.links){
   print("CREATING LOG")
   ####
   
-  tl <- data.frame(Date = format(Sys.time(), "%m-%d-%Y"),
-                    Zip = zips[i],
-                    Listings = ns,
-                    Total_Time = zt)
+  tl <- data.frame("date" = format(Sys.time(), "%m-%d-%Y"),
+                    "zip" = zips[i],
+                    "listings" = ns,
+                    "total_time" = zt)
   tms <- rbind(tms,tl)
   
   slp <- sample(4:8, 1)
@@ -629,17 +629,13 @@ pls <- nrow(CL)
 lgs <- read_civis("sandbox.craigslist_logs", database="City of Boston")
 lgs <- rbind(lgs, tms)
 
-
-
 write_civis(tsc, tablename = "sandbox.craigslist_timestampcheck", if_exists = "append")
-
-
-
 
 write_civis(lgs, tablename = "sandbox.craigslist_logs", if_exists = "append")
 
-
 write_civis(CL, tablename = "sandbox.craigslist_master", if_exists = "append")
+
+write_civis(CL, tablename = "sandbox.craigslist_daily", if_exists = "drop")
 
 print(paste("Finished Scraping", pls, "new listings."))
 
