@@ -56,14 +56,7 @@ c.burl <- "https://boston.craigslist.org/search/aap?"
 dis <- "search_distance=1"
 #Zip Code vorwahl
 zvor <- "&postal=" #then the zip code
-zips <- {c("02151",
-           "02152",
-           "02124",
-           "02126",
-           "02131",
-           "02132",
-           "02136",
-           "02109",
+zips <- {c("02109",
            "02110",
            "02111",
            "02113",
