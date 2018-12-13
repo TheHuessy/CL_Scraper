@@ -522,6 +522,9 @@ for (k in c.links){
       html_nodes("#postingbody") %>%
       html_text() %>%
       gsub("\n", "  ", .)
+  if (nchar(bod) > 1040){
+      bod <- substr(bod, 1, 1040)
+      }
     if (length(bod) == 0){
       bod <- NA
     }
