@@ -40,9 +40,6 @@ CL <- data.frame("Post_Title" = as.character(),
                  "Link" = as.character()
 )
 
-tsc <- data.frame(zip = as.character(),
-                  mrd = as.character()
-                  )
 
 ##Load in timestamp check file to use as reference
 
@@ -77,7 +74,6 @@ zips <- {c("02109",
            "02150",
            "02151",
            "02152",
-           "02124",
            "02126",
            "02131",
            "02132",
@@ -92,8 +88,8 @@ print("STARTING UP")
 
 for(i in 1:length(zips)){
   mti <- Sys.time()
-  strt <- TSR$mrd[which(paste(0,TSR$zip, sep = "") == zips[i])] 
-  strt <- as.POSIXct(strt)
+  strt <- as.POSIXct(max(as.Date(TSR$mrd[which(TSR$zip == as.numeric(zips[i]))])))
+  
   if (length(strt) == 0){
     strt <- as.POSIXlt(1541750400, origin="1970-01-01",tz="GMT")
   }
@@ -582,6 +578,9 @@ for (k in c.links){
     closeAllConnections()
   } #Link scrape for loop END
   
+  #Getting most resenct time stamp from this zip
+  umrd <- max(as.POSIXct(as.Date(as.character(CL$post_date[which(CL$scrape_zip == as.numeric(zips[i]))]))))
+  
   ####
   print("CALCULATING TIME")
   ####
@@ -607,9 +606,7 @@ for (k in c.links){
   
   ##Timestamp log
   
-  tsl <- data.frame(zip = as.character(zips[i]),
-                    mrd = mrd)
-  tsc <- rbind(tsl, tsc)
+  TSR$mrd[which(TSR$zips == as.numeric(zips[i]))] <- umrd
   
   slp <- sample(60:90, 1)
   print(paste("Super Sleeping for", slp, "seconds at", Sys.time()))
@@ -623,7 +620,7 @@ pls <- nrow(CL)
 lgs <- read_civis("sandbox.craigslist_logs", database="City of Boston")
 lgs <- rbind(lgs, tms)
 
-write_civis(tsc, tablename = "sandbox.craigslist_timestampcheck", if_exists = "append")
+write_civis(TSR, tablename = "sandbox.craigslist_timestampcheck", if_exists = "drop")
 
 write_civis(lgs, tablename = "sandbox.craigslist_logs", if_exists = "append")
 

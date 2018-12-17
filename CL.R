@@ -34,7 +34,6 @@ CL <- data.frame("Post_Title" = as.character(),
                  "Pets" = as.character(),
                  "Parking" = as.character(),
                  "Post_Text" = as.character(),
-                 "Post_Date" = as.character(),
                  "Scrape_Date" = as.character(),
                  "Scrape_Zip" = as.character(),
                  "Link" = as.character()
@@ -87,7 +86,6 @@ zips <- {c("02118",
            "02113",
            "02121",
            "02122",
-           "02124",
            "02125",
            "02127",
            "02210"
@@ -564,7 +562,6 @@ for (k in c.links){
                        "Cooling" = NA,
                        "Parking" = prkg,
                        "Post_Text" = bod,
-                       "Post_Date" = pdt,
                        "Scrape_Date" = sdat,
                        "Scrape_Zip" = zips[i],
                        "Link" = k
