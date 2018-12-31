@@ -88,7 +88,19 @@ print("STARTING UP")
 
 for(i in 1:length(zips)){
   mti <- Sys.time()
-  strt <- as.POSIXct(max(as.Date(TSR$mrd[which(TSR$zip == as.numeric(zips[i]))])))
+  chka <-  tryCatch({
+    as.POSIXct(max(as.Date(TSR$mrd[which(TSR$zip == as.numeric(zips[i]))])))
+  },
+  error = function(e){e}
+  )
+  
+  if(inherits(chka, "error")) {
+    print("Timestamp is No Dice")
+    strt <- as.POSIXlt(1, origin="1970-01-01",tz="GMT")
+  } else {
+  	strt <- as.POSIXct(max(as.Date(TSR$mrd[which(TSR$zip == as.numeric(zips[i]))])))
+  }
+  
   
   if (length(strt) == 0){
     strt <- as.POSIXlt(1541750400, origin="1970-01-01",tz="GMT")
