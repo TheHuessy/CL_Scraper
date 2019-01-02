@@ -632,13 +632,21 @@ pls <- nrow(CL)
 lgs <- read_civis("sandbox.craigslist_logs", database="City of Boston")
 lgs <- rbind(lgs, tms)
 
+print("Writing Timstamp Data")
 write_civis(TSR, tablename = "sandbox.craigslist_timestampcheck", if_exists = "drop")
+print("Timestamp Succeeded")
 
+print("Writing Log")
 write_civis(lgs, tablename = "sandbox.craigslist_logs", if_exists = "append")
+print("Log Succeeded")
 
+print("Writing Master")
 write_civis(CL, tablename = "sandbox.craigslist_master", if_exists = "append")
+print("Master Succeeded")
 
+print("Writing Daily")
 write_civis(CL, tablename = "sandbox.craigslist_daily", if_exists = "append")
+print("Daily Succeeded")
 
 print(paste("Finished Scraping", pls, "new listings."))
 
