@@ -611,10 +611,18 @@ for (k in c.links){
   
 }  #Zips for loop END
 
+print("Starting Data Writing...")
+
 CL <- unique(CL)
 
 pls <- nrow(CL)
+
+print("Reading Old Logs")
+
 lgs <- read_civis("sandbox.craigslist_logs", database="City of Boston")
+
+print("Adding New Log")
+
 lgs <- rbind(lgs, tms)
 
 print("Writing Timestamp Data")
