@@ -514,16 +514,7 @@ for (k in c.links){
     if (length(sdat) == 0){
       sdat <- NA
     }
-    
-    
-    ##Post Date
-    pdt <- sc %>%
-      html_nodes("#display-date") %>%
-      html_nodes(".date.timeago") %>%
-      html_attr("datetime")
-    if (length(pdt) == 0){
-      pdt <- NA
-    }
+
     
     ##Post Body
     bod <- sc %>%
